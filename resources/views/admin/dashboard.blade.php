@@ -1,4 +1,8 @@
-<x-admin-layout>
+<x-admin-layout :breadcrumbs="[
+    [
+        'name' => 'Dashboard',
+    ],
+]">
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
@@ -9,22 +13,22 @@
                 <img class="size-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
                     alt="{{ Auth::user()->name }}" />
 
-                    <div class="ml-4 flex-1">
+                <div class="ml-4 flex-1">
 
-                        <h2 class="text-lg font-semibold">
-                            Bienvenido, {{ auth()->user()->name }}
-                        </h2>
+                    <h2 class="text-lg font-semibold">
+                        Bienvenido, {{ auth()->user()->name }}
+                    </h2>
 
-                        <form action="{{ route('logout') }}" method="POST">
-                           @csrf
-                           
-                           <button class="text-sm hover:text-blue-500">
-                                Cerrar sesión
-                           </button>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
 
-                        </form>
+                        <button class="text-sm hover:text-blue-500">
+                            Cerrar sesión
+                        </button>
 
-                    </div>
+                    </form>
+
+                </div>
 
             </div>
 

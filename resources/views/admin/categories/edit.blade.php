@@ -44,15 +44,59 @@
                     value="{{ old('name', $category->name) }}" />
             </div>
 
+
+
             <div class="flex justify-end">
-                <x-button>
+
+                <x-danger-button onclick="confirmDelete()">
+                    Eliminar
+                </x-danger-button>
+
+                <x-button class="ml-2">
                     Actualizar
                 </x-button>
+
             </div>
 
     </form>
 
     </div>
+
+    <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" id="delete-form">
+
+        @csrf
+        @method('DELETE')
+
+    </form>
+
+    @push('js')
+        <script>
+            function confirmDelete() {
+
+                Swal.fire({
+                    title: "¿Estas seguro?",
+                    text: "¡No podrás revertir esto!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, ¡eliminalo!",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Swal.fire({
+                        //     title: "¡Eliminado!",
+                        //     text: "Su archivo ha sido eliminado.",
+                        //     icon: "success"
+                        // });
+
+                        document.getElementById('delete-form').submit();
+                    }
+                });
+            }
+        </script>
+    @endpush
+
 
 
 </x-admin-layout>

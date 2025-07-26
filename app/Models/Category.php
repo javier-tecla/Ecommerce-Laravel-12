@@ -20,7 +20,7 @@ class Category extends Model
      }
 
      //Relacion uno a muchos
-     public function subcategory(){
+     public function subcategories(){
         return $this->hasMany(Subcategory::class);
      }
 

@@ -8,12 +8,13 @@
         'route' => route('admin.categories.index'),
     ],
     [
-        'name' => 'Nuevo',
+        'name' => $category->name,
     ],
 ]">
 
-    <form action="{{ route('admin.categories.store') }}" method="POST">
+    <form action="{{ route('admin.categories.update', $category) }}" method="POST">
         @csrf
+        @method('PUT')
 
         <div class="card">
 
@@ -27,8 +28,7 @@
                 <x-select name="family_id" class="w-full">
 
                     @foreach ($families as $family)
-                        <option value="{{ $family->id }}"
-                             @selected(old('family_id') == $family->id)>
+                        <option value="{{ $family->id }}" @selected(old('family_id', $category->family_id) == $family->id)>
                             {{ $family->name }}
                         </option>
                     @endforeach
@@ -41,12 +41,12 @@
                     Nombre
                 </x-label>
                 <x-input class="w-full" placeholder="Ingrese el nombre de la categoría" name="name"
-                    value="{{ old('name') }}" />
+                    value="{{ old('name', $category->name) }}" />
             </div>
 
             <div class="flex justify-end">
                 <x-button>
-                    Guardar
+                    Actualizar
                 </x-button>
             </div>
 

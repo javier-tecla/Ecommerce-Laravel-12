@@ -11,7 +11,7 @@ class Category extends Model
 
     protected $fillable = [
       'name',
-      'familu_id'
+      'family_id'
     ];
 
      //Relacion uno a muchos  inversa

@@ -14,6 +14,8 @@
 
     <div class="card">
 
+        <x-validation-errors class="mb-4" />
+
         <form action="{{ route('admin.families.store') }}" method="POST">
             @csrf
             <div class="mb-4">

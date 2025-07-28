@@ -12,7 +12,7 @@
     ],
 ]">
 
-    <form action="{{ route('admin.subcategories.store') }}" method="POST">
+    {{-- <form action="{{ route('admin.subcategories.store') }}" method="POST">
         @csrf
 
         <div class="card">
@@ -50,9 +50,9 @@
                 </x-button>
             </div>
 
-    </form>
+    </form> --}}
 
-    </div>
+   @livewire('admin.subcategories.subcategory-create')
 
 
 </x-admin-layout>

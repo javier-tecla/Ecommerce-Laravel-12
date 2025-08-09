@@ -19,12 +19,13 @@ class DatabaseSeeder extends Seeder
         Storage::deleteDirectory('products');
         Storage::makeDirectory('products');
 
-        // User::factory(10)->create();
+        User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => 'Javier Borjas',
+            'email' => 'cristman11@gmail.com',
+            'password' => bcrypt('123456789')
+        ]);
 
         $this->call([
             FamilySeeder::class,

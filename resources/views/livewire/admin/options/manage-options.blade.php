@@ -71,6 +71,8 @@
 
         <x-slot name="content">
 
+            <x-validation-errors class="mb-4" />
+
             <div class="grid grid-cols-2 gap-6 mb-4">
 
                 <div>
@@ -128,11 +130,12 @@
                                     @break
 
                                     @case(2)
-                                        <div class="border border-gray-300 rounded-md h-[42px] flex items-center px-3">
+                                        <div class="border border-gray-300 rounded-md h-[42px] flex items-center justify-between px-3">
                                             {{ 
-                                                $newOption['features'][$index]['value']
+                                                $newOption['features'][$index]['value'] ?: 'Seleccione un color'
                                             }}
-                                            <input type="color" wire:model="newOption.features.{{ $index }}.value">
+
+                                            <input type="color" wire:model.live="newOption.features.{{ $index }}.value">
                                         </div>
                                     @break
 
@@ -165,6 +168,10 @@
         </x-slot>
 
         <x-slot name="footer">
+
+            <button class="btn btn-blue" wire:click="addOption">
+                Agregar
+            </button>
         </x-slot>
 
     </x-dialog-modal>

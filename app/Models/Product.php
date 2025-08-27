@@ -32,7 +32,8 @@ class Product extends Model
     //Relacion muchos a muchos
     public function options(){
         return $this->belongsToMany(Option::class)
-                    ->withPivot('value')
+                    ->using(OptionProduct::class)
+                    ->withPivot('features')
                     ->withTimestamps();
     }
 

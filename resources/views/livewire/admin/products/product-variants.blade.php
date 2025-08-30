@@ -36,41 +36,41 @@
                             <div class="flex flex-wrap">
 
                                 @foreach ($option->pivot->features as $feature)
-                                <div wire:key="option-{{$option->id}}-feature-{{ $feature['id'] }}">
-                                    @switch($option->type)
-                                        @case(1)
-                                            <span
-                                                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 pl-2.5 pr-1.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">
-                                                {{ $feature['description'] }}
-
-
-                                                <button class="ml-0.5"
-                                                    onclick="confirmDeleteFeature({{ $option->id }},{{ $feature['id'] }})">
-                                                    <i class="fa-solid fa-xmark hover:text-red-500"></i>
-                                                </button>
-
-                                            </span>
-                                        @break
-
-                                        @case(2)
-                                            {{-- Color --}}
-                                            <div class="relative">
+                                    <div wire:key="option-{{ $option->id }}-feature-{{ $feature['id'] }}">
+                                        @switch($option->type)
+                                            @case(1)
                                                 <span
-                                                    class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4"
-                                                    style="background-color: {{ $feature['value'] }}">
+                                                    class="bg-gray-100 text-gray-800 text-xs font-medium me-2 pl-2.5 pr-1.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">
+                                                    {{ $feature['description'] }}
+
+
+                                                    <button class="ml-0.5"
+                                                        onclick="confirmDeleteFeature({{ $option->id }},{{ $feature['id'] }})">
+                                                        <i class="fa-solid fa-xmark hover:text-red-500"></i>
+                                                    </button>
+
                                                 </span>
+                                            @break
 
-                                                <button
-                                                    class="absolute z-10 left-3 -top-2 rounded-full bg-red-500 hover:bg-red-600 h-3 w-3 flex justify-center items-center"
-                                                    onclick="confirmDeleteFeature({{ $option->id }},{{ $feature['id'] }})">
-                                                    <i class="fa-solid fa-xmark text-white text-xs"></i>
-                                                </button>
-                                            </div>
-                                        @break
+                                            @case(2)
+                                                {{-- Color --}}
+                                                <div class="relative">
+                                                    <span
+                                                        class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4"
+                                                        style="background-color: {{ $feature['value'] }}">
+                                                    </span>
 
-                                        @default
-                                    @endswitch
-                                </div>
+                                                    <button
+                                                        class="absolute z-10 left-3 -top-2 rounded-full bg-red-500 hover:bg-red-600 h-3 w-3 flex justify-center items-center"
+                                                        onclick="confirmDeleteFeature({{ $option->id }},{{ $feature['id'] }})">
+                                                        <i class="fa-solid fa-xmark text-white text-xs"></i>
+                                                    </button>
+                                                </div>
+                                            @break
+
+                                            @default
+                                        @endswitch
+                                    </div>
                                 @endforeach
 
                             </div>
@@ -95,6 +95,47 @@
             @endif
 
         </div>
+
+    </section>
+
+    <section class="rounded-lg border border-gray-100 bg-white shadow-lg mb-12">
+
+        <header class="border-b border-gray-200 px-6 py-2">
+            <div class="flex justify-between">
+                <h1 class="text-lg font-semibold text-gray-700">
+                    Variantes
+                </h1>
+
+
+            </div>
+        </header>
+
+        <div class="p-6">
+            <ul class="divide-y -my-4">
+
+                @foreach ($product->variants as $item)
+                    <li class="py-4 flex items-center">
+                        <img src="{{ $item->image }}" class="w-12 h-12 object-cover object-center" alt="image no available">
+
+                        <p class="divide-x">
+                            @foreach ($item->features as $feature)
+                                
+                            <span class="px-3">
+                                {{ $feature->description }}
+                            </span>
+
+                            @endforeach
+                        </p>
+
+                        <a href="{{ route('admin.products.variants', [$product, $item]) }}" class="ml-auto btn btn-blue">
+                            Editar
+                        </a>
+                    </li>
+                @endforeach
+
+            </ul>
+        </div>
+
 
     </section>
 

@@ -36,6 +36,7 @@
                             <div class="flex flex-wrap">
 
                                 @foreach ($option->pivot->features as $feature)
+                                <div wire:key="option-{{$option->id}}-feature-{{ $feature['id'] }}">
                                     @switch($option->type)
                                         @case(1)
                                             <span
@@ -61,7 +62,7 @@
 
                                                 <button
                                                     class="absolute z-10 left-3 -top-2 rounded-full bg-red-500 hover:bg-red-600 h-3 w-3 flex justify-center items-center"
-                                                    onclick="confirmDelete({{ $feature['id'] }}, 'feature')">
+                                                    onclick="confirmDeleteFeature({{ $option->id }},{{ $feature['id'] }})">
                                                     <i class="fa-solid fa-xmark text-white text-xs"></i>
                                                 </button>
                                             </div>
@@ -69,6 +70,7 @@
 
                                         @default
                                     @endswitch
+                                </div>
                                 @endforeach
 
                             </div>

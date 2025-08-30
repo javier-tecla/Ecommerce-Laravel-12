@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Products;
 
 use App\Models\Option;
 use App\Models\Feature;
+use App\Models\Variant;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
 
@@ -82,12 +83,16 @@ class ProductVariants extends Component
         ]);
 
         $this->product = $this->product->fresh();
+
+       $this->generarVariantes();
     }
 
     public function deleteOption($option_id)
     {
         $this->product->options()->detach($option_id);
         $this->product = $this->product->fresh();
+
+        $this->generarVariantes();
     }
 
     public function save()
@@ -105,9 +110,46 @@ class ProductVariants extends Component
 
         $this->product = $this->product->fresh();
 
+        $this->generarVariantes();
+
         $this->reset(['variant', 'openModal']);
-        
     }
+
+    public function generarVariantes()
+    {
+        $features = $this->product->options->pluck('pivot.features');
+        $combinaciones = $this->generarCombinaciones($features);
+        $this->product->variants()->delete();
+
+        foreach ($combinaciones as $combinacion) {
+            
+            $variant = Variant::create([
+                'product_id' => $this->product->id,
+            ]);
+
+            $variant->features()->attach($combinacion);
+        }
+    }
+
+    function generarCombinaciones($arrays, $indice = 0, $combinacion = [])
+    {
+        if ($indice == count($arrays)) {
+            return [$combinacion];
+        }
+
+        $resultado = [];
+
+        foreach ($arrays[$indice] as $item) {
+
+            $combinacionTemporal = $combinacion; //['a', 'a']
+            $combinacionTemporal[] = $item['id']; // ['a', 'a', 'a']
+
+            $resultado = array_merge($resultado, $this->generarCombinaciones($arrays, $indice + 1, $combinacionTemporal));
+        }
+
+        return $resultado;
+    }
+
 
     public function render()
     {

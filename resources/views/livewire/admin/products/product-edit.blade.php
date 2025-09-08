@@ -16,10 +16,10 @@
                 src="{{ $image ? $image->temporaryUrl() : Storage::url($productEdit['image_path']) }}" alt="">
         </figure>
 
-        
 
-        <x-validation-errors class="mb-4"/>
-            
+
+        <x-validation-errors class="mb-4" />
+
 
         <div class="card">
 
@@ -128,6 +128,19 @@
 
             </div>
 
+            @empty($product->variants->count() > 0)
+                <div class="mb-4">
+
+                    <x-label class="mb-1">
+                        Stock
+                    </x-label>
+
+                    <x-input type="number" wire:model="productEdit.stock" class="w-full"
+                        placeholder="Ingrese el stock del producto" />
+
+                </div>
+            @endempty
+
 
             <div class="flex justify-end">
                 <x-danger-button onclick="confirmDelete()">
@@ -142,7 +155,7 @@
         </div>
     </form>
 
-     <form action="{{ route('admin.products.destroy', $product) }}" method="POST" id="delete-form">
+    <form action="{{ route('admin.products.destroy', $product) }}" method="POST" id="delete-form">
 
         @csrf
         @method('DELETE')
@@ -164,7 +177,7 @@
                     cancelButtonText: "Cancelar"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        
+
                         document.getElementById('delete-form').submit();
                     }
                 });

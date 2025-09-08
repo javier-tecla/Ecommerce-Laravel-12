@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::orderBy('id', 'desc')
-        ->paginate();
+            ->paginate();
 
         return view('admin.products.index', compact('products'));
     }
@@ -82,5 +82,32 @@ class ProductController extends Controller
     public function variants(Product $product, Variant $variant)
     {
         return view('admin.products.variants', compact('product', 'variant'));
+    }
+
+    public function variantsUpdate(Request $request, Product $product, Variant $variant)
+    {
+        $data = $request->validate([
+            'image' => 'nullable|image|max:1024',
+            'sku' => 'required',
+            'stock' => 'required|numeric|min:0',
+        ]);
+
+        if ($request->image) {
+
+            if ($variant->image_path) {
+                Storage::delete($variant->image_path);
+            }
+            $data['image_path'] = $request->image->store('products');
+        }
+
+        $variant->update($data);
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title.' => '¡Bien Hecho!',
+            'text' => 'La variante se actualizó correctamente.',
+        ]);
+
+        return redirect()->route('admin.products.variants', [$product, $variant]);
     }
 }

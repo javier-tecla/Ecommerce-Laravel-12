@@ -47,7 +47,7 @@
 
         <div class="flex">
 
-            <div class="w-80 h-screen bg-white">
+            <div class="w-screen md:w-80 h-screen bg-white">
 
                 <div class="bg-purple-600 px-4 py-3 text-white font-semibold">
 
@@ -68,7 +68,7 @@
                     <ul>
 
                         @foreach ($families as $family)
-                            <li>
+                            <li wire:mouseover="$set('family_id', {{ $family->id }})">
                                 <a href=""
                                     class="flex items-center justify-between px-4 py-4 text-gray-700 hover:bg-purple-200">
                                     {{ $family->name }}
@@ -84,7 +84,49 @@
 
             </div>
 
-            <div>
+            <div class="w-80 xl:w-[57rem] pt-[52px] hidden md:block">
+
+                <div class="bg-white h-[calc(100vh-52px)] overflow-auto px-6 py-8">
+
+                    <div class="mb-8 flex justify-between items-center">
+
+                        <p class="border-b-[3px] border-lime-400 uppercase text-xl font-semibold pb-1">
+                            {{ $this->familyName }}
+                        </p>
+
+                        <a href="" class="btn btn-purple">
+                            Ver todo
+                        </a>
+
+                    </div>
+
+                    <ul class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+                        @foreach ($this->categories as $category)
+                            <li>
+
+                                <a href="" class="text-purple-600 font-semibold text-lg">
+                                    {{ $category->name }}
+                                </a>
+
+
+                                <ul class="mt-4 space-y-2">
+
+                                    @foreach ($category->subcategories as $subcategory)
+                                        <li>
+                                            <a href="" class="text-sm text-gray-700 hover:text-purple-600">
+                                                {{ $subcategory->name }}
+                                            </a>
+
+                                        </li>
+                                    @endforeach
+
+                                </ul>
+
+                            </li>
+                        @endforeach
+                    </ul>
+
+                </div>
 
             </div>
         </div>

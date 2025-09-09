@@ -1,10 +1,13 @@
-<div>
+<div x-data="{
+    open: false,
+}">
+
     <header class="bg-purple-600">
 
         <x-container class="px-4 py-4">
             <div class="flex justify-between items-center space-x-8">
 
-                <button class="text-xl md:text-3xl">
+                <button class="text-xl md:text-3xl" x-on:click="open = true">
                     <i class="fas fa-bars text-white"></i>
                 </button>
 
@@ -41,9 +44,10 @@
 
     </header>
 
-    <div class="fixed top-0 left-0 inset-0 bg-black bg-opacity-25 z-10"></div>
+    <div x-show="open" x-on:click="open = false" style="display: none"
+        class="fixed top-0 left-0 inset-0 bg-black bg-opacity-25 z-10"></div>
 
-    <div class="fixed top-0 left-0 z-20">
+    <div x-show="open" style="display: none" class="fixed top-0 left-0 z-20">
 
         <div class="flex">
 
@@ -56,7 +60,7 @@
                             ¡Hola!
                         </span>
 
-                        <button>
+                        <button x-on:click="open = false">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>

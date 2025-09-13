@@ -30,6 +30,8 @@
                 class="w-full aspect-[3/1] object-cover object-center" id="imgPreview">
         </figure>
 
+        <x-validation-errors class="mb-4" />
+
         <div class="mb-4">
             <x-label>
                 Título

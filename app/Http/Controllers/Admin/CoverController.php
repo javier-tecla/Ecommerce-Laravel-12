@@ -39,8 +39,15 @@ class CoverController extends Controller
         ]);
 
         $data ['image_path'] = Storage::put('covers', $data['image']);
+        $cover = Cover::create($data);
 
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Portada creada!',
+            'text' => 'La portada se ha creado correctamente.',
+        ]);
 
+        return redirect()->route('admin.covers.edit', $cover);
        
     }
 
@@ -57,7 +64,7 @@ class CoverController extends Controller
      */
     public function edit(Cover $cover)
     {
-        return view('admin.covers.edit', compact('covers'));
+        return view('admin.covers.edit', compact('cover'));
     }
 
     /**

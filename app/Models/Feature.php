@@ -21,7 +21,7 @@ class Feature extends Model
     }
 
     //Relacion muchos a muchos 
-    public function variant(){
+    public function variants(){
         return $this->belongsToMany(Variant::class)
                     ->withTimestamps();
     }

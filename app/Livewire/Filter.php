@@ -15,6 +15,8 @@ class Filter extends Component
 
     public $options;
 
+    public $selected_features = [];
+
     public function mount()
     {
         $this->options = Option::whereHas('products.subcategory.category', function($query){
@@ -26,13 +28,18 @@ class Filter extends Component
                 });
             }
         ])
-        ->get();
+        ->get()->toArray();
     }
 
     public function render()
     {
         $products = Product::whereHas('subcategory.category', function($query){
             $query->where('family_id', $this->family_id);
+        })
+        ->when($this->selected_features, function($query){
+            $query->whereHas('variants.features', function($query){
+                $query->whereIn('features.id', $this->selected_features);
+            });
         })
         ->paginate(12);
 

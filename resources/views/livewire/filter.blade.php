@@ -2,44 +2,101 @@
 
     <x-container class="px-4 flex">
 
-        <aside class="w-52 flex-shrink-0 mr-8">
+        @if (count($options))
 
-            <ul class="space-y-4">
-                @foreach ($options as $option)
-                    <li x-data="{
-                        open: true
-                    }">
-                        <button
-                            class="px-4 py-2 bg-gray-200 w-full text-left text-gray-700 flex justify-between items-center" x-on:click="open = !open">
-                            {{ $option->name }}
+            <aside class="w-52 flex-shrink-0 mr-8">
 
-                            <i class="fa-solid fa-angle-down" 
-                                x-bind:class="{
-                                    'fa-angle-down': open,
-                                    'fa-angle-up': !open,
-                                }"></i>
+                <ul class="space-y-4">
+                    @foreach ($options as $option)
+                        <li x-data="{
+                            open: true
+                        }">
+                            <button
+                                class="px-4 py-2 bg-gray-200 w-full text-left text-gray-700 flex justify-between items-center"
+                                x-on:click="open = !open">
+                                {{ $option->name }}
 
-                        </button>
+                                <i class="fa-solid fa-angle-down"
+                                    x-bind:class="{
+                                        'fa-angle-down': open,
+                                        'fa-angle-up': !open,
+                                    }"></i>
 
-                        <ul class="mt-2 space-y-2" x-show="open">
-                            @foreach ($option->features as $feature)
-                                <li>
-                                    <label class="inline-flex items-center">
+                            </button>
 
-                                        <x-checkbox class="mr-2" />
+                            <ul class="mt-2 space-y-2" x-show="open">
+                                @foreach ($option->features as $feature)
+                                    <li>
+                                        <label class="inline-flex items-center">
 
-                                        {{ $feature->description }}
-                                    </label>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </li>
-                @endforeach
-            </ul>
+                                            <x-checkbox class="mr-2" />
 
-        </aside>
+                                            {{ $feature->description }}
+                                        </label>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
+                </ul>
+
+            </aside>
+
+        @endif
 
         <div class="flex-1">
+
+            <div class="flex items-center">
+                <span class="="mr-2">
+                    Ordenar por:
+                </span>
+
+                <x-select>
+
+                    <option value="1">
+                        Relevancia
+                    </option>
+
+                    <option value="2">
+                        Precio: Mayor a menor
+                    </option>
+
+                    <option value="3">
+                        Precio: Menor a mayor
+                    </option>
+
+                </x-select>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+                @foreach ($products as $product)
+                    <article class="bg-white shadow rounded overflow-hidden">
+                        <img src="{{ $product->image }}" class="w-full h-48 object-cover object-center" alt="">
+
+                        <div class="p-4">
+                            <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[56px] mb-2">
+                                {{ $product->name }}
+                            </h1>
+
+                            <p class="text-gray-600 mb-4">
+                                $ {{ $product->price }}
+                            </p>
+
+                            <a href="" class="btn btn-purple block w-full text-center">
+                                Ver más
+                            </a>
+                        </div>
+                    </article>
+                @endforeach
+
+            </div>
+
+            <div class="mt-8">
+                {{ $products->links() }}
+            </div>
 
         </div>
 

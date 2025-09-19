@@ -54,7 +54,7 @@
                     Ordenar por: 
                 </span>
                     
-                <x-select>
+                <x-select wire:model.live="$orderBy">
 
                     <option value="1">
                         Relevancia

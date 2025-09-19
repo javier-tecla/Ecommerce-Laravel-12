@@ -17,6 +17,8 @@ class Filter extends Component
 
     public $selected_features = [];
 
+    Public $orderBy = '1';
+
     public function mount()
     {
         $this->options = Option::whereHas('products.subcategory.category', function($query){

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Option;
 use App\Models\Product;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
 class Filter extends Component
@@ -18,6 +19,8 @@ class Filter extends Component
     public $selected_features = [];
 
     public $orderBy = 1;
+
+    public $search;
 
     public function mount()
     {
@@ -33,6 +36,26 @@ class Filter extends Component
         ->get()->toArray();
     }
 
+    #[On('search')]
+    public function search($search)
+    {
+        $this->search = $search;
+        $this->resetPage();
+    }
+
+
+    public function updatedOrderBy()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSelectedFeatures()
+    {
+        $this->resetPage();
+    }
+    
+
+
     public function render()
     {
         $products = Product::whereHas('subcategory.category', function($query){
@@ -47,12 +70,13 @@ class Filter extends Component
         ->when($this->orderBy == 3, function($query){
              $query->orderBy('price', 'asc');
         })
-
-
         ->when($this->selected_features, function($query){
             $query->whereHas('variants.features', function($query){
                 $query->whereIn('features.id', $this->selected_features);
             });
+        })
+        ->when($this->search, function($query){
+            $query->where('name', 'like', '%'.$this->search.'%');
         })
         ->paginate(12);
 

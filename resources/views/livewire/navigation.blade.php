@@ -23,7 +23,8 @@
                 </h1>
 
                 <div class="flex-1 hidden md:block">
-                    <x-input oninput="search(this.value)" class="w-full" placeholder="Buscar por producto, tienda o marca" />
+                    <x-input oninput="search(this.value)" class="w-full"
+                        placeholder="Buscar por producto, tienda o marca" />
                 </div>
 
                 <div class="flex items-center space-x-4 md:space-x-8">
@@ -95,7 +96,8 @@
             </div>
 
             <div class="mt-4 md:hidden">
-                <x-input oninput="search(this.value)" class="w-full py-1 text-sm" placeholder="Buscar por producto, tienda o marca" />
+                <x-input oninput="search(this.value)" class="w-full py-1 text-sm"
+                    placeholder="Buscar por producto, tienda o marca" />
             </div>
         </x-container>
 
@@ -165,7 +167,7 @@
                         @foreach ($this->categories as $category)
                             <li>
 
-                                <a href="" class="text-purple-600 font-semibold text-lg">
+                                <a href="{{ route('categories.show', $category) }}" class="text-purple-600 font-semibold text-lg">
                                     {{ $category->name }}
                                 </a>
 
@@ -195,14 +197,12 @@
     </div>
 
     @push('js')
-
         <script>
             function search(value) {
-                Livewire.dispatch('search' , {
+                Livewire.dispatch('search', {
                     search: value
                 })
             }
         </script>
-
     @endpush
 </div>

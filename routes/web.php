@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 
 
@@ -19,6 +20,8 @@ Route::get('families/{family}', [FamilyController::class, 'show'])->name('famili
 Route::get('categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
 Route::get('subcategories/{subcategory}', [SubcategoryController::class, 'show'])->name('subcategories.show');
+
+Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 Route::middleware([
     'auth:sanctum',

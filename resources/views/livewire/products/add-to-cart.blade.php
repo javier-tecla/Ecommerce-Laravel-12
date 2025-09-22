@@ -65,7 +65,10 @@
 
                     </div>
 
-                    <button class="btn btn-purple w-full mb-6">
+                    <button class="btn btn-purple w-full mb-6"
+                        wire:click="add_to_cart"
+                        wire:loading.attr="disabled"
+                    >
                         Agregar al carrito
                     </button>
 

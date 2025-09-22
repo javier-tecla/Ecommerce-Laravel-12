@@ -1,17 +1,12 @@
 <?php
 
-
-use App\Models\Product;
-
-use App\Models\Variant;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FamilyController;
-use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
-
-
+use App\Http\Controllers\WelcomeController;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
 
@@ -33,4 +28,9 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::get('prueba', function () {
 
+    Cart::instance('shopping');
+
+    return Cart::content();
+});

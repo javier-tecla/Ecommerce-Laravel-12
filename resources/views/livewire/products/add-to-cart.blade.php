@@ -6,14 +6,12 @@
 
                 <div class="col-span-1">
 
-                    <figure class="mb-2">
-                        <img src="{{ $product->image }}" class="aspect-[16/9] w-full object-cover object-center"
+                    <figure>
+                        <img src="{{ $product->image }}" class="aspect-[1/1] w-full object-cover object-center"
                             alt="">
                     </figure>
 
-                    <div class="text-sm">
-                        {{ $product->description }}
-                    </div>
+                    
 
                 </div>
 
@@ -71,6 +69,10 @@
                     >
                         Agregar al carrito
                     </button>
+
+                    <div class="text-sm mb-4">
+                        {{ $product->description }}
+                    </div>
 
                     <div class="text-gray-700 flex items-center space-x-4">
                         <i class="fa-solid fa-truck-fast text-2xl"></i>

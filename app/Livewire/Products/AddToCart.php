@@ -22,14 +22,18 @@ class AddToCart extends Component
             'options' => [
                 'image' => $this->product->image,
                 'sku' => $this->product->sku,
-                'features' => []
-            ]
+                'features' => [],
+            ],
         ]);
+
+        if (auth()->check()) {
+                Cart::store(auth()->id());
+        }
 
         $this->dispatch('swal', [
             'icon' => 'success',
             'title' => '¡Bien hecho!',
-            'text' => 'El producto se ha añadido al carrito de compra'
+            'text' => 'El producto se ha añadido al carrito de compra',
         ]);
     }
 

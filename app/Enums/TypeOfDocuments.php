@@ -11,3 +11,5 @@ enum TypeOfDocuments:int
     case LE = 5;
     case ID = 6;
 }
+
+

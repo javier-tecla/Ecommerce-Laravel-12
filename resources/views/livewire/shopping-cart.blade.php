@@ -7,7 +7,9 @@
                     Carrito de compras ({{ Cart::count() }} productos)
                 </h1>
 
-                <button class="font-semibold text-gray-600 hover:text-purple-500 underline hover:no-underline">
+                <button class="font-semibold text-gray-600 hover:text-purple-500 underline hover:no-underline"
+                wire:click="destroy()"
+                >
                     Limpiar carro
                 </button>
             </div>
@@ -28,7 +30,8 @@
                                 </p>
 
                                 <button
-                                    class="bg-red-100 hover:bg-red-200 text-red-800 text-xs font-semibold rounded px-2.5 py-0.5">
+                                    class="bg-red-100 hover:bg-red-200 text-red-800 text-xs font-semibold rounded px-2.5 py-0.5"
+                                    wire:click="remove('{{ $item->rowId }}')">
                                     <i class="fa-solid fa-xmark"></i>
                                     Quitar
                                 </button>
@@ -39,7 +42,9 @@
                             </p>
 
                             <div class="ml-auto space-x-3">
-                                <button class="btn btn-gray">
+                                <button class="btn btn-gray"
+                                wire:click="decrease('{{ $item->rowId }}')"
+                                >
                                     -
                                 </button>
 
@@ -47,7 +52,10 @@
                                     {{ $item->qty }}
                                 </span>
 
-                                <button class="btn btn-gray">
+                                <button class="btn btn-gray"
+                                wire:click="increase('{{ $item->rowId }}')"
+                                >
+                                    
                                     +
                                 </button>
 

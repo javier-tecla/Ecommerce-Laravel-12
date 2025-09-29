@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Products;
 
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class AddToCart extends Component
 {
@@ -25,7 +25,7 @@ class AddToCart extends Component
                 'features' => [],
             ],
         ]);
-
+        
         if (auth()->check()) {
                 Cart::store(auth()->id());
         }

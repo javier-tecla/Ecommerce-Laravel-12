@@ -57,57 +57,85 @@
 
                 <hr class="my-4">
 
-                <div>
+                <div x-data="{
+                    receiver: @entangle('createAddress.receiver'),
+                    receiver_info: @entangle('createAddress.receiver_info'),
+                }" x-init="
+                    $watch('receiver', value => {
+                        if(value == 1){
+
+                            receiver_info.name = '{{ auth()->user()->name }}';
+                            receiver_info.last_name = '{{ auth()->user()->last_name }}';
+                            receiver_info.document_type = '{{ auth()->user()->document_type }}';
+                            receiver_info.document_number = '{{ auth()->user()->document_number }}';
+                            receiver_info.phone = '{{ auth()->user()->phone }}';
+                        
+                        }else{
+                            receiver_info.name = '';
+                            receiver_info.last_name = '';
+                            receiver_info.document_number = '';
+                            receiver_info.phone = '';
+                        }
+                    })
+                ">
                     <p class="font-semibold mb-2">
                         ¿Quien recibirá el pedido?
                     </p>
 
                     <div class="flex space-x-2 mb-4">
                         <label class="flex items-center">
-                            <input type="radio" value="1" class="mr-1">
+                            <input x-model="receiver" type="radio" value="1" class="mr-1">
                             Seré yo
                         </label>
 
                         <label class="flex items-center">
-                            <input type="radio" value="1" class="mr-1">
+                            <input x-model="receiver" type="radio" value="2" class="mr-1">
                             Otra persona
                         </label>
                     </div>
 
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <x-input class="w-full" placeholder="Nombres" />
+                            <x-input 
+                                x-bind:disabled="receiver == 1"
+                                x-model="receiver_info.name" 
+                                class="w-full" 
+                                placeholder="Nombres" />
                         </div>
 
                         <div>
-                            <x-input class="w-full" placeholder="Apellidos" />
+                            <x-input 
+                                x-bind:disabled="receiver == 1" 
+                                x-model="receiver_info.last_name" 
+                                class="w-full" 
+                                placeholder="Apellidos" />
                         </div>
 
                         <div>
                             <div class="flex space-x-2">
 
-                                <x-select>
+                                <x-select x-model="receiver_info.document_type">
 
                                     @foreach (\App\Enums\TypeOfDocuments::cases() as $item)
-
                                         <option value="{{ $item->value }}">
                                             {{ $item->name }}
                                         </option>
-                                        
                                     @endforeach
 
                                 </x-select>
 
-                                <x-input class="w-full" placeholder="Número de documento" />
+                                <x-input x-model="receiver_info.document_number" class="w-full" placeholder="Número de documento" />
 
                             </div>
                         </div>
 
                         <div>
-                            <x-input class="w-full" placeholder="Teléfono" />
+                            <x-input x-model="receiver_info.phone" class="w-full" placeholder="Teléfono" />
                         </div>
                         <div>
-                            <button class="btn btn-outline-gray w-full">
+                            <button 
+                                class="btn btn-outline-gray w-full"
+                                wire:click="$set('newAddress', false)">
                                 Cancelar
                             </button>
                         </div>

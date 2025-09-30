@@ -18,7 +18,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->integer('type');
             $table->string('description');
-            $table->string('provincia');
+            $table->string('province');
             $table->string('reference');
             $table->integer('receiver');
             $table->json('receiver_info');

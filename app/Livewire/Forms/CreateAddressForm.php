@@ -8,8 +8,10 @@ use Livewire\Form;
 class CreateAddressForm extends Form
 {
     public $type = '';
-    public $description = '';
+    public $address = '';
     public $province = '';
+    public $city = '';
+    public $zip_code= '';
     public $reference = '';
     public $receiver = 1;
     public $receiver_info = [];

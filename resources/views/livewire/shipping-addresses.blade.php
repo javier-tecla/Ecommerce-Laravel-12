@@ -20,7 +20,7 @@
                     <div class="col-span-1">
                         <x-select wire:model="createAddress.type">
 
-                            <option value="">
+                            <option value="" disabled selected>
                                 Tipo de dirección
                             </option>
 
@@ -35,10 +35,10 @@
                         </x-select>
                     </div>
 
-                    {{-- Descripcion --}}
+                    {{-- Dirección --}}
                     <div class="col-span-3">
-                        <x-input wire:model="createAddress.description" class="w-full" type="text"
-                            placeholder="Nombre de la dirección" />
+                        <x-input wire:model="createAddress.address" class="w-full" type="text"
+                            placeholder="Dirección" />
                     </div>
 
                     {{-- Provincia --}}
@@ -47,10 +47,22 @@
                             placeholder="Provincia" />
                     </div>
 
-                    {{-- Referencia --}}
+                    {{-- Ciudad --}}
                     <div class="col-span-2">
+                        <x-input wire:model="createAddress.city" class="w-full" type="text"
+                            placeholder="Ciudad" />
+                    </div>
+
+                     {{-- Codigo postal --}}
+                    <div class="col-span-1">
+                        <x-input wire:model="createAddress.zip_code" class="w-full" type="text"
+                            placeholder="Codigo postal" />
+                    </div>
+
+                    {{-- Referencia --}}
+                    <div class="col-span-3">
                         <x-input wire:model="createAddress.reference" class="w-full" type="text"
-                            placeholder="Referencia" />
+                            placeholder="Referencia o indicaciones para la entrega" />
                     </div>
 
                 </div>
@@ -83,13 +95,13 @@
                     </p>
 
                     <div class="flex space-x-2 mb-4">
-                        <label class="flex items-center">
-                            <input x-model="receiver" type="radio" value="1" class="mr-1">
+                        <label class="flex items-center cursor-pointer">
+                            <input x-model="receiver" type="radio" value="1" class="mr-2">
                             Seré yo
                         </label>
 
-                        <label class="flex items-center">
-                            <input x-model="receiver" type="radio" value="2" class="mr-1">
+                        <label class="flex items-center cursor-pointer">
+                            <input x-model="receiver" type="radio" value="2" class="mr-2">
                             Otra persona
                         </label>
                     </div>
@@ -114,7 +126,9 @@
                         <div>
                             <div class="flex space-x-2">
 
-                                <x-select x-model="receiver_info.document_type">
+                                <x-select
+                                 x-bind:disabled="receiver == 1" 
+                                x-model="receiver_info.document_type">
 
                                     @foreach (\App\Enums\TypeOfDocuments::cases() as $item)
                                         <option value="{{ $item->value }}">
@@ -124,7 +138,9 @@
 
                                 </x-select>
 
-                                <x-input x-model="receiver_info.document_number" class="w-full" placeholder="Número de documento" />
+                                <x-input 
+                                 x-bind:disabled="receiver == 1"
+                                x-model="receiver_info.document_number" class="w-full" placeholder="Número de documento" />
 
                             </div>
                         </div>

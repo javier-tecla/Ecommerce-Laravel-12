@@ -19,7 +19,7 @@
 
                 {{-- Apellidos --}}
                 <div>
-                    <x-label for="last_name" value="Apellidos" />
+                    <x-label for="last_name" value="Apellido" />
                     <x-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')"
                         required autocomplete="last_name" />
                 </div>

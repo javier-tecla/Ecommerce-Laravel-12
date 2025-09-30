@@ -17,8 +17,10 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('cascade');
             $table->integer('type');
-            $table->string('description');
+            $table->string('address');
             $table->string('province');
+            $table->string('city');
+            $table->string('zip_code');
             $table->string('reference');
             $table->integer('receiver');
             $table->json('receiver_info');

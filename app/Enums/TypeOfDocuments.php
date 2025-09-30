@@ -5,11 +5,11 @@ namespace App\Enums;
 enum TypeOfDocuments:int
 {
     case DNI = 1;
-    case CE = 2;
-    case RUC = 3;
-    case PP = 4;
-    case LE = 5;
-    case ID = 6;
+    case CUIL = 2;
+    case CUIT = 3;
+    case CI= 4;
+    case ID= 5;
+    case PASAPORTE = 6;
 }
 
 

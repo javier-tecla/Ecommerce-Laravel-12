@@ -14,6 +14,8 @@
 
             @if ($newAddress)
 
+                <x-validation-errors class="mb-6" />
+
                 <div class="grid grid-cols-4 gap-4">
 
                     {{-- Tipo --}}
@@ -156,7 +158,9 @@
                             </button>
                         </div>
                         <div>
-                            <button class="btn btn-purple w-full">
+                            <button 
+                            wire:click="store"
+                                class="btn btn-purple w-full">
                                 Guardar
                             </button>
                         </div>

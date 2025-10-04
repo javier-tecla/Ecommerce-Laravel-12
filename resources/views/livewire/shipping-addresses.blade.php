@@ -171,7 +171,7 @@
 
                     <ul class="grid grid-cols-3 gap-4">
                         @foreach ($addresses as $address)
-                            <li class="bg-white rounded-lg shadow">
+                            <li class="{{ $address->default ? 'bg-purple-200' : 'bg-white' }} rounded-lg shadow">
 
                                 <div class="p-4 flex items-center">
                                     <div>
@@ -202,7 +202,7 @@
 
                                     </div>
                                     <div class="text-xs text-gray-800 flex flex-col">
-                                        <button>
+                                        <button wire:click="setDefaulAddress({{ $address->id }})">
                                             <i class="fa-solid fa-star"></i>
                                         </button>
                                         <button>

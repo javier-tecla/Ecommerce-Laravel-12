@@ -35,6 +35,15 @@ class ShippingAddresses extends Component
         $this->newAddress = false;
     }
 
+    public function setDefaulAddress($id)
+    {
+        $this->addresses->each(function($address) use ($id){
+            $address->update([
+                'default' => $address->id == $id
+            ]);
+        });
+    }
+
     public function render()
     {
         return view('livewire.shipping-addresses');

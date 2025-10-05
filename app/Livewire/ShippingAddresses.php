@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Livewire\Forms\CreateAddressForm;
+use App\Livewire\Forms\Shipping\EditAddressForm;
 use App\Models\Address;
 use Livewire\Component;
 
@@ -13,6 +14,7 @@ class ShippingAddresses extends Component
     public $newAddress = false;
 
     public CreateAddressForm $createAddress;
+    public EditAddressForm $editAddress;
 
     public function mount()
     {
@@ -33,6 +35,18 @@ class ShippingAddresses extends Component
         $this->createAddress->save();
         $this->addresses = Address::where('user_id', auth()->id())->get();
         $this->newAddress = false;
+    }
+
+    public function edit($id)
+    {
+        $address = Address::find($id);
+        $this->editAddress->edit($address);
+    }
+
+    public function update()
+    {
+        $this->editAddress->update();
+        $this->addresses = Address::where('user_id', auth()->id())->get();
     }
 
     public function setDefaulAddress($id)

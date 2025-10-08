@@ -7,6 +7,7 @@ use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\SubcategoryController;
 
@@ -23,6 +24,8 @@ Route::get('products/{product}', [ProductController::class, 'show'])->name('prod
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 
 Route::get('shipping', [ShippingController::class, 'index'])->name('shipping.index');
+
+Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 
 Route::middleware([
     'auth:sanctum',
